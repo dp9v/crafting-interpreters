@@ -1,2 +1,2 @@
-rootProject.name = "crafting-interpreters-lux"
+rootProject.name = "crafting-interpreters"
 
