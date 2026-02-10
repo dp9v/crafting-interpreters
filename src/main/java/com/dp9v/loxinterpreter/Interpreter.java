@@ -1,4 +1,4 @@
-﻿package com.dp9v.loxinterpreter;
+package com.dp9v.loxinterpreter;
 
 public class Interpreter implements Expr.Visitor<Object> {
 
