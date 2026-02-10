@@ -4,13 +4,22 @@ import java.util.List;
 
 //https://craftinginterpreters.com/parsing-expressions.html
 public class Parser {
-    private static class ParseError extends RuntimeException {}
+    private static class ParseError extends RuntimeException {
+    }
 
     private final List<Token> tokens;
     private int current = 0;
 
     public Parser(List<Token> tokens) {
         this.tokens = tokens;
+    }
+
+    public Expr parse() {
+        try {
+            return expression();
+        } catch (ParseError error) {
+            return null;
+        }
     }
 
     private Expr expression() {
@@ -20,7 +29,7 @@ public class Parser {
     private Expr equality() {
         Expr expr = comparison();
 
-        while (match(TokenType.BANG_EQUAL, TokenType.EQUAL_EQUAL)){
+        while (match(TokenType.BANG_EQUAL, TokenType.EQUAL_EQUAL)) {
             Token operator = previous();
             Expr right = comparison();
             expr = new Expr.Binary(expr, operator, right);
