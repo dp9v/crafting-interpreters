@@ -6,3 +6,8 @@ print "Hello, World!";
 print x == y;
 y = 10;
 print x == y;
+{
+  var x = 5 + x;
+  print x; // Should print 15
+}
+print x; // Should print 10

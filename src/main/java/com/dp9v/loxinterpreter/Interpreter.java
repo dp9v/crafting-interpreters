@@ -143,6 +143,12 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Void visitBlockStmt(Stmt.Block stmt) {
+        executeBlock(stmt.statements, new Environment(environment));
+        return null;
+    }
+
+    @Override
     public Void visitExpressionStmt(Stmt.Expression stmt) {
         evaluate(stmt.expression);
         return null;
@@ -163,5 +169,17 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         }
         environment.define(stmt.name.lexeme(), value);
         return null;
+    }
+
+    void executeBlock(List<Stmt> stmts, Environment environment) {
+        Environment prev = this.environment;
+        try {
+            this.environment = environment;
+            for (Stmt stmt : stmts) {
+                execute(stmt);
+            }
+        } finally {
+            this.environment = prev;
+        }
     }
 }
