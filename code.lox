@@ -4,3 +4,5 @@ var z = x + y;
 print z;
 print "Hello, World!";
 print x == y;
+y = 10;
+print x == y;
